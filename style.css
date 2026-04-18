@@ -296,6 +296,8 @@ ul {
     animation: morph 8s ease-in-out infinite;
     padding: 8px;
     background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+    transform: translateZ(0); /* Fix for hardware acceleration glitches */
+    will-change: border-radius, transform;
 }
 
 @keyframes morph {
@@ -314,6 +316,7 @@ ul {
     background-color: var(--bg-primary);
     filter: grayscale(20%) contrast(1.1);
     transition: var(--transition);
+    -webkit-mask-image: -webkit-radial-gradient(white, black); /* Fix for iOS clipping glitches */
 }
 
 .hero-image-wrapper:hover .hero-image {
@@ -727,6 +730,11 @@ footer {
         width: 280px;
         height: 280px;
         margin-bottom: 40px;
+    }
+
+    /* Disable hover on touch devices to prevent glitching */
+    .hero-image-wrapper:hover .hero-image {
+        filter: grayscale(20%) contrast(1.1); /* same as default */
     }
 
     .description {
